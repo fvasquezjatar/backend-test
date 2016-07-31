@@ -1,9 +1,12 @@
 ﻿using IngswDev.EntityFramework;
+using IngswDev.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace IngswDev
 {
@@ -34,8 +37,23 @@ namespace IngswDev
             services.AddApplicationInsightsTelemetry(Configuration);
             // Configuring IngsDev EntityFramework Services
             services.AddIngswDevContext(Configuration);
+            // Configure lowercase URLs
+            services.AddRouting(opt =>
+            {
+                opt.LowercaseUrls = true;
+            });
             // Configuring MVC Framework
-            services.AddMvc();
+            services.AddMvc(opt =>
+            {
+                // Add Custom Global Filters
+                opt.Filters.Add(typeof(AuthorizeFilterAttribute));
+            }).AddJsonOptions(opt =>
+            {
+                // Global SerializerSettings for JsonResults
+                opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
