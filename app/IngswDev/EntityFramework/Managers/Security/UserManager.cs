@@ -4,6 +4,7 @@ using IngswDev.EntityFramework.Repository.Security;
 using IngswDev.Models;
 using System;
 using System.Threading.Tasks;
+using IngswDev.Extensions;
 
 namespace IngswDev.EntityFramework.Managers.Security
 {
@@ -28,14 +29,19 @@ namespace IngswDev.EntityFramework.Managers.Security
             return new UserManager(userRepo, tokenRepo);
         }
 
-        public Task<Token> SignInAsync(LoginViewModel login)
+        public async Task<bool> SignInAsync(LoginViewModel login)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(login?.Username) || string.IsNullOrEmpty(login.Password))
+                return false;
+            var username = login.Username;
+            var passwordHash = login.Password.ComputeHash();
+            return await _userRepo.SelectAsync(user => (user.Username.Equals(username) || user.Email.Equals(username))
+                           && user.PasswordHash.Equals(passwordHash)) != null;
         }
 
-        public Task<Token> CreateAsync(RegisterViewModel register)
+        public Task<bool> CreateAsync(RegisterViewModel register)
         {
-            throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
         public bool Authenticate(string userId, string accessToken)

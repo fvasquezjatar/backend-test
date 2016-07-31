@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace IngswDev.EntityFramework.Repository.Security
 {
-    public class UserRepo : Repository<UserRepo>
+    public class UserRepo : Repository<User>
     {
-        public UserRepo(IngswDevDB db, ILogger<Repository<UserRepo>> logger) 
+        public UserRepo(IngswDevDB db, ILogger<Repository<User>> logger) 
             : base(db, logger)
         {
 
