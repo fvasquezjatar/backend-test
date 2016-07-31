@@ -25,7 +25,7 @@ namespace IngswDev.EntityFramework.Map.Entities
 
             _modelBuilder.HasIndex(index => index.Email)
                 .ForSqlServerIsClustered(false)
-                .ForSqlServerHasName("IX_Email")
+                .ForSqlServerHasName("IX_Users_Email")
                 .IsUnique();
 
             _modelBuilder.HasIndex(index => index.Username)
