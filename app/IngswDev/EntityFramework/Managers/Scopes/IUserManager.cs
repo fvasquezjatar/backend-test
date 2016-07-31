@@ -2,6 +2,6 @@
 {
     public interface IUserManager
     {
-        
+        bool Authenticate(string userId, string token);
     }
 }
