@@ -1,10 +1,9 @@
 ﻿using IngswDev.EntityFramework.Managers.Scopes;
-using IngswDev.EntityFramework.Models.Security;
 using IngswDev.EntityFramework.Repository.Security;
+using IngswDev.Extensions;
 using IngswDev.Models;
 using System;
 using System.Threading.Tasks;
-using IngswDev.Extensions;
 
 namespace IngswDev.EntityFramework.Managers.Security
 {
