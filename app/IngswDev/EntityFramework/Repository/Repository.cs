@@ -24,14 +24,14 @@ namespace IngswDev.EntityFramework.Repository
         {
             _db.Set<TEntity>().Add(entity);
             _db.Entry(entity).State = EntityState.Added;
-            _logger.LogInformation($"New instance pf {typeof(TEntity).Name} was added");
+            _logger?.LogInformation($"New instance pf {typeof(TEntity).Name} was added");
         }
 
         public void Delete(TEntity entity)
         {
             _db.Set<TEntity>().Attach(entity);
             _db.Entry(entity).State = EntityState.Deleted;
-            _logger.LogInformation($"New instance pf {typeof(TEntity).Name} was marked to delete");
+            _logger?.LogInformation($"New instance pf {typeof(TEntity).Name} was marked to delete");
         }
 
         public Task<int> SaveAsync()
@@ -58,7 +58,7 @@ namespace IngswDev.EntityFramework.Repository
         {
             _db.Set<TEntity>().Attach(entity);
             _db.Entry(entity).State = EntityState.Modified;
-            _logger.LogInformation($"New instance pf {typeof(TEntity).Name} was marked to update");
+            _logger?.LogInformation($"New instance pf {typeof(TEntity).Name} was marked to update");
         }
 
     }
