@@ -4,6 +4,8 @@ using IngswDev.Extensions;
 using IngswDev.Models;
 using System;
 using System.Threading.Tasks;
+using AutoMapper;
+using IngswDev.EntityFramework.Models.Security;
 
 namespace IngswDev.EntityFramework.Managers.Security
 {
@@ -28,19 +30,28 @@ namespace IngswDev.EntityFramework.Managers.Security
             return new UserManager(userRepo, tokenRepo);
         }
 
-        public async Task<bool> SignInAsync(LoginViewModel login)
+        public async Task<string> SignInAsync(LoginViewModel login)
         {
             if (string.IsNullOrEmpty(login?.Username) || string.IsNullOrEmpty(login.Password))
-                return false;
+                return string.Empty;
             var username = login.Username;
             var passwordHash = login.Password.ComputeHash();
-            return await _userRepo.SelectAsync(user => (user.Username.Equals(username) || user.Email.Equals(username))
-                           && user.PasswordHash.Equals(passwordHash)) != null;
+            var usr = await _userRepo.SelectAsync(user => (user.Username.Equals(username) || user.Email.Equals(username))
+                           && user.PasswordHash.Equals(passwordHash));
+            return usr != null ? usr.Id : string.Empty;
         }
 
-        public Task<bool> CreateAsync(RegisterViewModel register)
+        public async Task<string> CreateAsync(RegisterViewModel register)
         {
-           throw new NotImplementedException();
+            var user = Mapper.Map<User>(register);
+            user.Id = Guid.NewGuid().ToString("N");
+            await _userRepo.CreateAsync(user, register.Password);
+            return user.Id;
+        }
+
+        public Task<User> FindByIdAsync(string userId)
+        {
+            return _userRepo.FindAsync(userId);
         }
 
         public bool Authenticate(string userId, string accessToken)
@@ -48,7 +59,15 @@ namespace IngswDev.EntityFramework.Managers.Security
             var token = _tokenRepo.Find(accessToken);
             if (token == null || !token.UserId.Equals(userId))
                 return false;
-            return token.Expiration >= DateTime.UtcNow;
+            return token.Expiration <= DateTime.UtcNow;
+        }
+
+        public async Task<Token> AllowAccess(string userId)
+        {
+            var user = await _userRepo.FindAsync(userId);
+            if (user == null)
+                return null;
+            return await _tokenRepo.CreateNewAccessAsync(user);
         }
     }
 }

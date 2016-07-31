@@ -7,9 +7,11 @@ namespace IngswDev.EntityFramework.Managers.Scopes
     public interface IUserManager
     {
         // async methods
-        Task<bool> SignInAsync(LoginViewModel login);
-        Task<bool> CreateAsync(RegisterViewModel register);
+        Task<string> SignInAsync(LoginViewModel login);
+        Task<string> CreateAsync(RegisterViewModel register);
+        Task<User> FindByIdAsync(string userId);
         // not async methods
         bool Authenticate(string userId, string token);
+        Task<Token> AllowAccess(string userId);
     }
 }

@@ -3,6 +3,7 @@ using IngswDev.EntityFramework.Managers.Scopes;
 using IngswDev.EntityFramework.Managers.Security;
 using IngswDev.EntityFramework.Repository.Entities;
 using IngswDev.EntityFramework.Repository.Security;
+using IngswDev.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,10 @@ namespace IngswDev.EntityFramework
             services.UseRepositoryPattern();
             // Add IngswDev Managers
             services.AddManagers();
+            // Add Seed Scope Injection
+            services.AddScoped<IIngswDevDBSeed, IngswDevDBSeed>();
+            // Configuring a custom attribute that depends on services from the DI container
+            services.AddScoped<TransactionalFilterAttribute>();
             return services;
         }
 

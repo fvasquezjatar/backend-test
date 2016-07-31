@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using IngswDev.EntityFramework.Models.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -21,6 +22,20 @@ namespace IngswDev.EntityFramework.Repository.Security
         public Token Find(string token)
         {
             return _db.AccessTokens.FirstOrDefault(tk => tk.AccessToken.Equals(token));
+        }
+
+        public async Task<Token> CreateNewAccessAsync(User user)
+        {
+            var token = new Token()
+            {
+                AccessToken = Guid.NewGuid().ToString("D"),
+                Expiration = DateTime.Now.AddMinutes(30),
+                User = user,
+                UserId = user.Id,
+            };
+            Add(token);
+            await SaveAsync();
+            return token;
         }
     }
 }

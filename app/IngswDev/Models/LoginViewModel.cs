@@ -9,6 +9,7 @@ namespace IngswDev.Models
         public string Username { get; set; }
         [Required]
         [StringLength(255, MinimumLength = 8)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using IngswDev.EntityFramework.Managers.Scopes;
 using IngswDev.EntityFramework.Managers.Security;
 using IngswDev.Extensions;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace IngswDev.Filters
 {
@@ -14,39 +14,29 @@ namespace IngswDev.Filters
         public const string COOKIE_ID = "_AuthorizationId";
 
         private readonly IUserManager _userManager;
+        private static ILogger<AuthorizeFilterAttribute> _logger;
 
-        public AuthorizeFilterAttribute()
+        public AuthorizeFilterAttribute(IUserManager userManager, ILogger<AuthorizeFilterAttribute> logger)
         {
-            _userManager = UserManager.GetInstance();
+            _userManager = userManager;
+            _logger = logger;
         }
 
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (context.Filters.All(f => f.GetType() != typeof(AllowAnonymousFilter)))
+            if (!context.OnActionExecuting(_userManager, _logger))
             {
-                if (!context.HttpContext.Request.Cookies.Any(c => c.Key.Equals(COOKIE_AUTHORIZATION))
-                    || !context.HttpContext.Request.Cookies.Any(c => c.Key.Equals(COOKIE_ID)))
-                {
-                    RedirectToLogin(context);
-                    return;
-                }
-                var id = context.HttpContext.Request.Cookies[COOKIE_ID].DecodeFromBase64();
-                var token = context.HttpContext.Request.Cookies[COOKIE_AUTHORIZATION].DecodeFromBase64();
-                if (!_userManager.Authenticate(id, token))
-                {
-                    RedirectToLogin(context);
-                    return;
-                }
+                base.OnActionExecuting(context);
             }
-            base.OnActionExecuting(context);
         }
 
-        private static void RedirectToLogin(ActionExecutingContext context)
+        public static void RedirectToLogin(ActionExecutingContext context)
         {
+            _logger?.LogInformation("UnAuthorizeException... Redirecting to Login Page...");
             context.HttpContext.Response.Cookies.Delete(COOKIE_AUTHORIZATION);
             context.HttpContext.Response.Cookies.Delete(COOKIE_ID);
-            context.Result = new RedirectToActionResult("Login", "Account", null);
+            context.Result = new RedirectToActionResult("Login", "Account", new { ReturnUrl = context.HttpContext.Request.GetUri() });
         }
     }
 }

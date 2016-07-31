@@ -1,4 +1,5 @@
 ﻿using IngswDev.EntityFramework;
+using IngswDev.EntityFramework.Managers;
 using IngswDev.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,17 +54,16 @@ namespace IngswDev
                 opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IIngswDevDBSeed ingswDevDbSeed)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
             app.UseApplicationInsightsRequestTelemetry();
-
+            app.AddMapperConfigurations();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -75,15 +75,14 @@ namespace IngswDev
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
-
             app.UseStaticFiles();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            ingswDevDbSeed.SeedAsync();
         }
     }
 }
