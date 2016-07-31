@@ -1,2 +1,6 @@
 .DS_Store
 backend/node_modules
+app/.vs
+app/_ReSharper.Caches
+app/IngswDev/bin
+app/IngswDev/obj
