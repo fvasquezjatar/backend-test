@@ -1,6 +1,9 @@
-﻿using System;
-using IngswDev.EntityFramework.Managers.Scopes;
+﻿using IngswDev.EntityFramework.Managers.Scopes;
+using IngswDev.EntityFramework.Models.Security;
 using IngswDev.EntityFramework.Repository.Security;
+using IngswDev.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace IngswDev.EntityFramework.Managers.Security
 {
@@ -23,6 +26,16 @@ namespace IngswDev.EntityFramework.Managers.Security
             var userRepo = new UserRepo(db, null);
             var tokenRepo = new TokenRepo(db, null);
             return new UserManager(userRepo, tokenRepo);
+        }
+
+        public Task<Token> SignInAsync(LoginViewModel login)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Token> CreateAsync(RegisterViewModel register)
+        {
+            throw new NotImplementedException();
         }
 
         public bool Authenticate(string userId, string accessToken)
