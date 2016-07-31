@@ -7,7 +7,7 @@ namespace IngswDev.EntityFramework
     {
         public IngswDevDB Create()
         {
-            var connString = Startup.Configuration["Data:SQLConnectionString"];
+            var connString = Startup.Configuration["Data:IngswDevDB"];
             var builder = new DbContextOptionsBuilder<IngswDevDB>()
                 .UseSqlServer(connString);
             return new IngswDevDB(builder);
@@ -15,7 +15,7 @@ namespace IngswDev.EntityFramework
 
         public IngswDevDB Create(DbContextFactoryOptions options)
         {
-            var connString = Startup.Configuration["Data:SQLConnectionString"];
+            var connString = Startup.Configuration["Data:IngswDevDB"];
             var builder = new DbContextOptionsBuilder<IngswDevDB>()
                 .UseSqlServer(connString);
             return new IngswDevDB(builder);

@@ -14,7 +14,7 @@ namespace IngswDev.EntityFramework
     {
         public static IServiceCollection AddIngswDevContext(this IServiceCollection services, IConfigurationRoot configuration)
         {
-            var connString = configuration["Data:SQLConnectionString"];
+            var connString = configuration["Data:IngswDevDB"];
             services.AddEntityFramework()
                 .AddDbContext<IngswDevDB>(opt =>
                 {
