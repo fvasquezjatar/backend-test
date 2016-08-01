@@ -1,0 +1,18 @@
+﻿@model IEnumerable<IngswDev.EntityFramework.Models.Entities.Event>
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        @*<div class="col-md-2">
+            <img src="@item.ImageUri" class="img-thumbnail" alt="imageUri" />
+        </div>*@
+        <div class="col-md-8">
+            @{
+                var targetDate = item.TargetDates.First();
+            }
+            <p style="margin-bottom: 0px"><b>@item.Title - @targetDate.TargetDate.ToString("MMM dd @ yyyy")</b>
+            </p>
+            <p style="font-size: 10px;">@item.Description.Substring(0, 25)</p>
+        </div>
+    }
+}

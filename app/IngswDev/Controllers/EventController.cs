@@ -2,6 +2,7 @@
 using IngswDev.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using IngswDev.Models;
 
 namespace IngswDev.Controllers
 {

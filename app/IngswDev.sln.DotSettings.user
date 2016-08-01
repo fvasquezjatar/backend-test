@@ -2,6 +2,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B62936CE_002DD090_002D43DF_002DAEB9_002D0914A9885506_002Fd_003AViews_002Fd_003AAccount_002Ff_003ALogin_002Ecshtml/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B62936CE_002DD090_002D43DF_002DAEB9_002D0914A9885506_002Fd_003AViews_002Fd_003AAccount_002Ff_003ARegister_002Ecshtml/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B62936CE_002DD090_002D43DF_002DAEB9_002D0914A9885506_002Fd_003AViews_002Fd_003AHome_002Ff_003AIndex_002Ecshtml/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B62936CE_002DD090_002D43DF_002DAEB9_002D0914A9885506_002Fd_003AViews_002Fd_003AShared_002Ff_003A_005FHighLightsEvents_002Ecshtml/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B62936CE_002DD090_002D43DF_002DAEB9_002D0914A9885506_002Fd_003AViews_002Fd_003AShared_002Ff_003A_005FLayout_002Ecshtml/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B62936CE_002DD090_002D43DF_002DAEB9_002D0914A9885506_002Fd_003AViews_002Fd_003AShared_002Ff_003A_005FLoginPartial_002Ecshtml/@EntryIndexedValue">ExplicitlyExcluded</s:String>
