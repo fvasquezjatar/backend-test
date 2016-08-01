@@ -22,20 +22,6 @@ namespace IngswDev.Controllers
             var events = await _eventManager.EventsAsync(new PagingViewModel(0, 4));
             return View(events);
         }
-        [AllowAnonymous]
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
 
         public IActionResult Error()
         {
