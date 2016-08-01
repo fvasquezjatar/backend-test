@@ -12,7 +12,7 @@
 
 * Primero debes instalar la versión más reciente de dotnet core aca https://www.microsoft.com/net/core#windows
 No es necesario instalar visual studio, tan sólo con instalar el SDK de dotnet basta.
-* Ubica el archivo **appsettings.json** y modifica el ConnectionString con tu servidor SQL.
+* Ubica el archivo **app/IngswDev/appsettings.json** y modifica el ConnectionString con tu servidor SQL.
 * Abre una consola de Windows y posicionate a la carpeta raíz del projecto:
 ```
 				cd PATH_TO_PROJECT_FOLDER/app/IngswDev
