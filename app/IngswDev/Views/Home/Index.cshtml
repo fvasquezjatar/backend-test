@@ -1,3 +1,36 @@
-﻿@{
+﻿@model IEnumerable<IngswDev.EntityFramework.Models.Entities.Event>
+@{
     ViewData["Title"] = "Events";
 }
+<h2>@ViewData["Title"]</h2>
+<hr />
+<div class="row">
+    <div class="col-lg-8">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="card" style="margin-bottom: 24px">
+                    <img class="img-responsive" width="500" height="500" src="@item.ImageUri" alt="..."/>
+                    <h3 class="img-title">@item.Title</h3>
+                    <div class="img-footer img-fixed">
+                        <a asp-controller="Event" asp-action="Index" asp-route-id="@item.Id" style="margin:8px" class="btn btn-success">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-lg-4">
+        <h4>Today's Highlight</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <img src="http://placehold.it/700x400" class="img-thumbnail" alt="imageUri" />
+            </div>
+            <div class="col-md-8">
+                <p style="margin-bottom: 0px"><b>Event Name - Jul 20 @@ 1930</b></p>
+                <p style="font-size: 10px;">This is the event description</p>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success btn-circle btn-xl pull-right"><i class="glyphicon glyphicon-edit"></i></button>
+    </div>
+</div>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using IngswDev.EntityFramework.Models.Entities;
+﻿using IngswDev.EntityFramework.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IngswDev.EntityFramework.Repository.Entities
@@ -18,7 +16,7 @@ namespace IngswDev.EntityFramework.Repository.Entities
 
         public Task<Event> Find(long id)
         {
-            return _db.Events.FirstOrDefaultAsync(key => key.Id.Equals(id));
+            return _db.Events.Include(i => i.TargetDates).FirstOrDefaultAsync(key => key.Id.Equals(id));
         }
 
         public Task<List<Event>> EventsAsync(int? page, int? pageSize)

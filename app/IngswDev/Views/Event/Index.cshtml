@@ -1,0 +1,37 @@
+﻿@model IngswDev.EntityFramework.Models.Entities.Event
+@{
+    ViewData["Title"] = "Events";
+}
+<h2><a asp-action="Index" asp-controller="Home"><i class="glyphicon glyphicon-arrow-left"></i></a>&emsp;@ViewData["Title"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <p><spam class="title">@Model.Title</spam> @Model.Location</p>
+        <p>@Model.Description</p>
+    </div>
+    <div class="col-md-4">
+        <img src="@Model.ImageUri" class="img-thumbnail" />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            @if (Model.TargetDates != null)
+            {
+                <tbody>
+                    @foreach (var item in Model.TargetDates)
+                    {
+                        <tr>
+                            <td>@item.TargetDate.ToString("dd MMMM")</td>
+                            <td>@item.TargetDate.ToString("hh:mm:ss")</td>
+                            <td>$200</td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
