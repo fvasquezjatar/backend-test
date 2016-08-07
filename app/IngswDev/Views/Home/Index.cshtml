@@ -40,7 +40,7 @@
         <div class="row">
             @await Component.InvokeAsync("HighLights")
         </div>
-        <button type="button" class="btn btn-success btn-circle btn-xl pull-right"><i class="glyphicon glyphicon-edit"></i></button>
+        <a asp-controller="Event" asp-action="Create" class="btn btn-success btn-circle btn-xl pull-right"><i class="glyphicon glyphicon-edit"></i></a>
     </div>
 </div>
 @section scripts {

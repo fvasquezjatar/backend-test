@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using IngswDev.EntityFramework.Models.Entities;
 using IngswDev.EntityFramework.Models.Security;
 using IngswDev.Extensions;
 using IngswDev.Models;
@@ -14,6 +17,13 @@ namespace IngswDev.EntityFramework.Managers
             {
                 config.CreateMap<RegisterViewModel, User>()
                     .ForMember(m => m.PasswordHash, opt => opt.MapFrom(p => p.Password.ComputeHash()));
+                config.CreateMap<EventViewModel, Event>()
+                    .ForMember(m => m.TargetDates, cfg => cfg.MapFrom(e => new HashSet<EventDate>(e.TargetDates.Select(s => new EventDate()
+                    {
+                        TargetDate = s,
+                        TimeZone = "Eastern Standard Time",
+                        Deleted = false
+                    }).ToList())));
             });
         }
     }
