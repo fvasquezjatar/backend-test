@@ -1,8 +1,10 @@
-﻿@using System.ComponentModel
-@model IEnumerable<IngswDev.EntityFramework.Models.Entities.Event>
+﻿@model IEnumerable<IngswDev.EntityFramework.Models.Entities.Event>
 @{
     ViewData["Title"] = "Events";
 }
+
+@inject IUrlHelper Url;
+
 <h2>@ViewData["Title"]</h2>
 <hr />
 <div class="row">
@@ -11,17 +13,29 @@
         {
             <div class="col-md-6">
                 <div class="card" style="margin-bottom: 24px">
-                    <img class="img-responsive" width="500" height="500" src="@item.ImageUri" alt="..."/>
+                    <img class="img-responsive" width="500" height="500" src="@item.ImageUri" alt="..." />
+                    <div class="card-header">
+                        @{
+                            var target = item.TargetDates.First();
+                            var shareText = $"Iré a {item.Title} @ {target.TargetDate.ToString("yyyy/MM/dd")}";
+                            var host = $"{Url.ActionContext.HttpContext.Request.Scheme}://{Url.ActionContext.HttpContext.Request.Host}";
+                            var eventUri = Html.Raw($"{host}/event/{item.Id}");
+                            var queryString = $"text={shareText}&url={eventUri}";
+                        }
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?@Html.Raw(queryString)"  data-size="default">
+                            Tweet
+                        </a>
+                    </div>
                     <h3 class="img-title">@item.Title</h3>
                     <div class="img-footer img-fixed">
-                        <a asp-controller="Event" asp-action="Index" asp-route-id="@item.Id" style="margin:8px" class="btn btn-success">Details</a>
+                        <a asp-controller="Event" asp-action="Index" asp-route-id="@item.Id" style="margin: 8px" class="btn btn-success">Details</a>
                     </div>
                 </div>
             </div>
         }
     </div>
     <div class="col-lg-4">
-        <h4>Today's Highlight</h4>
+        <h4>Highlight Events</h4>
         <hr />
         <div class="row">
             @await Component.InvokeAsync("HighLights")
@@ -29,3 +43,6 @@
         <button type="button" class="btn btn-success btn-circle btn-xl pull-right"><i class="glyphicon glyphicon-edit"></i></button>
     </div>
 </div>
+@section scripts {
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+}

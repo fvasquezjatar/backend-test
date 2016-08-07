@@ -94,6 +94,12 @@ textarea {
     font-family: sans-serif
 }
 
+.card-header {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
 .img-footer {
     position: absolute;
     left: 0px;

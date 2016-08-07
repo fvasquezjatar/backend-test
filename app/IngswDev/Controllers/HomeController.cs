@@ -3,6 +3,7 @@ using IngswDev.EntityFramework.Managers.Scopes;
 using IngswDev.Filters;
 using IngswDev.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IngswDev.Controllers
 {
@@ -14,6 +15,7 @@ namespace IngswDev.Controllers
         public HomeController(IEventManager eventManager)
         {
             _eventManager = eventManager;
+            
         }
 
         [AllowAnonymous]
